@@ -3,24 +3,30 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Расчет</title>
   <style>
+    html {
+      font-size: 14px;
+      margin: 0;
+    }
+
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       margin: 0;
-      padding: 40px 20px;
-      color: #866157;
+      padding: 4rem 2rem;
+      color: #091e42;
       line-height: 1.35;
       min-height: 100vh;
-      background: #fbfbfb;
+      background: #fffbf8;
       box-sizing: border-box;
     }
 
     h1 {
-      margin: 0 auto 40px;
-      max-width: 600px;
+      margin: 0 auto 4rem;
+      max-width: 60rem;
       font-size: 2.5rem;
       line-height: 1.15;
     }
@@ -28,11 +34,11 @@
     form {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 2.4rem;
       align-items: center;
-      width: 640px;
+      width: 40rem;
       max-width: 100%;
-      margin: 0 auto 60px;
+      margin: 0 auto 6rem;
     }
 
     .input {
@@ -40,8 +46,9 @@
       font-size: 2rem;
       font-family: inherit;
       text-align: center;
-      padding: 1rem 2.4rem;
+      padding: 1rem 1rem 1rem 2.4rem;
       box-sizing: border-box;
+      font-weight: 700;
     }
 
     .button {
@@ -53,48 +60,125 @@
       color: #fde6e0;
       cursor: pointer;
       transition: all .25s;
+      border: 0;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.1em;
     }
 
-    button:hover {
-      background: #866157;
+    .button:hover {
+      background: #78574e;
       box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
     }
 
-    button:active {
-      background: #866157;
+    .button:active {
+      background: #674941;
       box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
     }
 
     .result {
       text-align: center;
       font-size: 2rem;
-      background: #fafdff;
-      padding: 2.4rem;
-      border: solid 1px lightblue;
+      background: #fff9ff;
+      border: solid 1px #add8e6;
       opacity: 0;
       margin: auto;
-      max-width: 700px;
+      max-width: 76rem;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      max-height: 12rem;
+      overflow: hidden;
     }
 
     .result.visible {
       opacity: 1;
       transition: all .25s;
+      max-height: 100rem;
+    }
+
+    .col-1,
+    .col-2 {
+      box-sizing: border-box;
+      padding: 1.6rem 2rem;
+      border: solid 1px lightblue;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(to bottom, #fff9ff, #fff3fe)
+    }
+
+    .col-2 {
+      width: 50%;
+    }
+
+    .col-1 {
+      width: 25%;
+    }
+
+    .h2 {
+      font-size: 1.4rem;
+      margin: 0 0 1rem;
+    }
+
+    .birth-value,
+    .value {
+      font-size: 2.4rem;
+      font-weight: 700;
+      padding: .4rem 2rem;
+      border-radius: 1rem;
+      background: white;
+      margin: 0 auto;
+      border: solid 1px lightblue;
+    }
+
+    .bg-th {
+      background: linear-gradient(to bottom, #fdeafc, #ffd5fc);
+    }
+
+    .empty {
+      background: #fff;
     }
 
     @media (max-width: 767px) {
-      h1 {
-        font-size: 1.6rem;
+      body {
+        padding: 1.6rem 0;
       }
 
-      .result {
+      h1 {
         font-size: 1.6rem;
-        padding: 1.6rem;
+        margin: 0 2rem 2rem;
+      }
+
+      .col-1,
+      .col-2 {
+        padding: .6rem .8rem 1rem;
+      }
+
+      .h2 {
+        font-size: .8rem;
+        margin: 0 0 .6rem;
+      }
+
+      form {
+        padding: 0 1rem;
+        gap: 1rem;
+        box-sizing: border-box;
+        margin: 0 0 2rem;
       }
 
       .input,
       .button {
         font-size: 1.6rem;
         padding: 0.8rem;
+      }
+
+      .value,
+      .birth-value {
+        font-size: 1.3rem;
+        padding: .2rem 1rem;
+        border-radius: .5rem;
       }
     }
   </style>
@@ -108,14 +192,81 @@
     <button type="submit" class="button">Рассчитать</button>
   </form>
 
-  <div class="result"></div>
+  <div class="result">
+    <div class="col-2 bg-th">
+      <h2 class="h2">Дата рождения</h2>
+      <div class="birth-value js-birth"></div>
+    </div>
+    <div class="col-1 bg-th">
+      <h2 class="h2">Типология</h2>
+      <div class="value js-tipology"></div>
+    </div>
+    <div class="col-1 bg-th">
+      <h2 class="h2">Темперамент</h2>
+      <div class="value js-temperament"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Характер</h2>
+      <div class="value js-character"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Здоровье</h2>
+      <div class="value js-health"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Удача</h2>
+      <div class="value js-lucky"></div>
+    </div>
+    <div class="col-1 bg-th">
+      <h2 class="h2">Цель</h2>
+      <div class="value js-goal"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Энергия</h2>
+      <div class="value js-energy"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Логика</h2>
+      <div class="value js-logic"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Долг</h2>
+      <div class="value js-duty"></div>
+    </div>
+    <div class="col-1 bg-th">
+      <h2 class="h2">Семья</h2>
+      <div class="value js-family"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Интерес</h2>
+      <div class="value js-interes"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Труд</h2>
+      <div class="value js-labor"></div>
+    </div>
+    <div class="col-1">
+      <h2 class="h2">Память</h2>
+      <div class="value js-memory"></div>
+    </div>
+    <div class="col-1 bg-th">
+      <h2 class="h2">Привычки</h2>
+      <div class="value js-habit"></div>
+    </div>
+    <div class="col-1 empty"></div>
+    <div class="col-1">
+      <h2 class="h2">Быт</h2>
+      <div class="value js-life"></div>
+    </div>
+    <div class="col-1 empty"></div>
+    <div class="col-1 empty"></div>
+  </div>
 
   <script>
-    var d = document;
-    var input = d.querySelector(".input");
-    var button = d.querySelector(".button");
-    var form = d.querySelector(".form");
-    var result = d.querySelector(".result");
+    var input = el(".input");
+    var button = el(".button");
+    var form = el(".form");
+    var result = el(".result");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -126,12 +277,86 @@
         return;
       }
 
-      var dateParts = inputValue.split("-");
-      var sumOfDigits = dateParts.reduce((sum, part) => sum + parseInt(part), 0);
-      var square = Math.sqrt(sumOfDigits);
+      var numbers = parseBirth(inputValue);
+
+      display(".js-birth", new Date(inputValue).toLocaleString("ru", {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      }))
+      display(".js-tipology", numbers.tipology);
+      display(".js-character", numbers.count["1"]);
+      display(".js-energy", numbers.count["2"]);
+      display(".js-interes", numbers.count["3"]);
+      display(".js-health", numbers.count["4"]);
+      display(".js-logic", numbers.count["5"]);
+      display(".js-labor", numbers.count["6"]);
+      display(".js-lucky", numbers.count["7"]);
+      display(".js-duty", numbers.count["8"]);
+      display(".js-memory", numbers.count["9"]);
+      display(".js-goal", countDigits(String(numbers.count["1"]) + String(numbers.count["4"]) + String(numbers.count["7"])));
+      display(".js-family", countDigits(String(numbers.count["2"]) + String(numbers.count["5"]) + String(numbers.count["8"])));
+      display(".js-habit", countDigits(String(numbers.count["3"]) + String(numbers.count["6"]) + String(numbers.count["9"])));
+      display(".js-life", countDigits(String(numbers.count["4"]) + String(numbers.count["5"]) + String(numbers.count["6"])));
+      display(".js-temperament", countDigits(String(numbers.count["3"]) + String(numbers.count["5"]) + String(numbers.count["7"])));
+
       result.classList.add("visible");
-      result.textContent = "Квадрат Пифагора по дате рождения: " + square + "Ты молодец!";
     });
+
+    function el(className) {
+      return document.querySelector(className);
+    }
+
+    function display(selector, value) {
+      try {
+        el(selector).textContent = value == 0 ? "—" : value;
+      } catch (e) {
+        console.error("error", e)
+      }
+    }
+
+    function parseBirth(inputValue) {
+      var sumOfBirth = inputValue.split("-").reduce((sum, part) => sum + getSum(part), 0);
+      var tipology = getSum(sumOfBirth);
+      var number3 = sumOfBirth - (2 * Number(inputValue.slice(0, 1)));
+      var number4 = getSum(number3);
+
+      return {
+        sum: sumOfBirth,
+        tipology: tipology,
+        number3: number3,
+        number4: number4,
+        count: countNumbers(String(number3) + String(number4) + String(sumOfBirth) + String(tipology) + inputValue.split("-").join(""))
+      }
+    }
+
+    function getSum(stringOfNumbers) {
+      return String(stringOfNumbers).split("").reduce((s, n) => s + Number(n), 0);
+    }
+
+    function count(arrayOfNumbers, number) {
+      return arrayOfNumbers.reduce((count, num) => Number(num) === number ? count + 1 : count, 0);
+    }
+
+    function countNumbers(numbers) {
+      var arrayNumbers = String(numbers).split("");
+
+      return {
+        "1": count(arrayNumbers, 1),
+        "2": count(arrayNumbers, 2),
+        "3": count(arrayNumbers, 3),
+        "4": count(arrayNumbers, 4),
+        "5": count(arrayNumbers, 5),
+        "6": count(arrayNumbers, 6),
+        "7": count(arrayNumbers, 7),
+        "8": count(arrayNumbers, 8),
+        "9": count(arrayNumbers, 9),
+      }
+    }
+
+    function countDigits(stringOfNumber) {
+      return stringOfNumber.split("").filter(n => Number(n) !== 0).length;
+    }
   </script>
 </body>
 
