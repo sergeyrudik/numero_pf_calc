@@ -285,20 +285,20 @@
         year: 'numeric'
       }))
       display(".js-tipology", numbers.tipology);
-      display(".js-character", numbers.count["1"]);
-      display(".js-energy", numbers.count["2"]);
-      display(".js-interes", numbers.count["3"]);
-      display(".js-health", numbers.count["4"]);
-      display(".js-logic", numbers.count["5"]);
-      display(".js-labor", numbers.count["6"]);
-      display(".js-lucky", numbers.count["7"]);
-      display(".js-duty", numbers.count["8"]);
-      display(".js-memory", numbers.count["9"]);
-      display(".js-goal", countDigits(String(numbers.count["1"]) + String(numbers.count["4"]) + String(numbers.count["7"])));
-      display(".js-family", countDigits(String(numbers.count["2"]) + String(numbers.count["5"]) + String(numbers.count["8"])));
-      display(".js-habit", countDigits(String(numbers.count["3"]) + String(numbers.count["6"]) + String(numbers.count["9"])));
-      display(".js-life", countDigits(String(numbers.count["4"]) + String(numbers.count["5"]) + String(numbers.count["6"])));
-      display(".js-temperament", countDigits(String(numbers.count["3"]) + String(numbers.count["5"]) + String(numbers.count["7"])));
+      display(".js-character", getCellContent(1, numbers.count["1"], 1));
+      display(".js-energy", getCellContent(2, numbers.count["2"], 1));
+      display(".js-interes", getCellContent(3, numbers.count["3"], 1));
+      display(".js-health", getCellContent(4, numbers.count["4"], 1));
+      display(".js-logic", getCellContent(5, numbers.count["5"], 1));
+      display(".js-labor", getCellContent(6, numbers.count["6"], 1));
+      display(".js-lucky", getCellContent(7, numbers.count["7"], 1));
+      display(".js-duty", getCellContent(8, numbers.count["8"], 1));
+      display(".js-memory", getCellContent(9, numbers.count["9"], 1));
+      display(".js-goal", countDigits(getCellContent(1, String(numbers.count["1"])) + getCellContent(4, String(numbers.count["4"])) + getCellContent(7, String(numbers.count["7"]))));
+      display(".js-family", countDigits(getCellContent(2, String(numbers.count["2"])) + getCellContent(5, String(numbers.count["5"])) + getCellContent(8, String(numbers.count["8"]))));
+      display(".js-habit", countDigits(getCellContent(3, String(numbers.count["3"])) + getCellContent(6, String(numbers.count["6"])) + getCellContent(9, String(numbers.count["9"]))));
+      display(".js-life", countDigits(getCellContent(4, String(numbers.count["4"])) + getCellContent(5, String(numbers.count["5"])) + getCellContent(6, String(numbers.count["6"]))));
+      display(".js-temperament", countDigits(getCellContent(3, String(numbers.count["3"])) + getCellContent(5, String(numbers.count["5"])) + getCellContent(7, String(numbers.count["7"]))));
 
       result.classList.add("visible");
     });
@@ -309,10 +309,24 @@
 
     function display(selector, value) {
       try {
-        el(selector).textContent = value == 0 ? "—" : value;
+        el(selector).textContent = value;
       } catch (e) {
         console.error("error", e)
       }
+    }
+
+    function getCellContent(num, count, withDash) {
+      if (count === 0 && withDash) {
+        return "—";
+      }
+
+      var result = "";
+
+      for (var i = 0; i < count; i++) {
+        result += String(num);
+      }
+
+      return result;
     }
 
     function parseBirth(inputValue) {
