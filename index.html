@@ -1,0 +1,138 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расчет</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 40px 20px;
+      color: #091e42;
+      line-height: 1.35;
+      min-height: 100vh;
+      background: #fbfbfb;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin: 0 auto 40px;
+      max-width: 600px;
+      font-size: 2.5rem;
+      line-height: 1.15;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      width: 640px;
+      max-width: 100%;
+      margin: 0 auto 60px;
+    }
+
+    .input {
+      width: 100%;
+      font-size: 2rem;
+      font-family: inherit;
+      text-align: center;
+      padding: 1rem 2.4rem;
+      box-sizing: border-box;
+    }
+
+    .button {
+      width: 100%;
+      font-size: 2rem;
+      padding: 1rem;
+      box-sizing: border-box;
+      background: #091e42;
+      color: gold;
+      cursor: pointer;
+      transition: all .25s;
+    }
+
+    button:hover {
+      background: #092d6a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
+    }
+
+    button:active {
+      background: #091e42;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+    }
+
+    .result {
+      text-align: center;
+      font-size: 2rem;
+      background: #fafdff;
+      padding: 2.4rem;
+      border: solid 1px lightblue;
+      opacity: 0;
+      margin: auto;
+      max-width: 700px;
+    }
+
+    .result.visible {
+      opacity: 1;
+      transition: all .25s;
+    }
+
+    @media (max-width: 767px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .result {
+        font-size: 1.6rem;
+        padding: 1.6rem;
+      }
+
+      .input,
+      .button {
+        font-size: 1.6rem;
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Расчет квадрата Пифагора по&nbsp;дате рождения</h1>
+
+  <form class="form">
+    <input type="date" placeholder="дд.мм.гггг" class="input" />
+    <button type="submit" class="button">Рассчитать</button>
+  </form>
+
+  <div class="result"></div>
+
+  <script>
+    var d = document;
+    var input = d.querySelector(".input");
+    var button = d.querySelector(".button");
+    var form = d.querySelector(".form");
+    var result = d.querySelector(".result");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var inputValue = input.value;
+
+      if (!inputValue) {
+        return;
+      }
+
+      var dateParts = inputValue.split("-");
+      var sumOfDigits = dateParts.reduce((sum, part) => sum + parseInt(part), 0);
+      var square = Math.sqrt(sumOfDigits);
+      result.classList.add("visible");
+      result.textContent = "Квадрат Пифагора по дате рождения: " + square "Ты молодец!";
+    });
+  </script>
+</body>
+
+</html>
