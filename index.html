@@ -332,7 +332,7 @@
     function parseBirth(inputValue) {
       var sumOfBirth = inputValue.split("-").reduce((sum, part) => sum + getSum(part), 0);
       var tipology = getSum(sumOfBirth);
-      var number3 = sumOfBirth - (2 * Number(inputValue.split("-")[2].slice(0, 1)));
+      var number3 = sumOfBirth - (2 * Number(String(parseInt(inputValue.split("-")[2], 10)).slice(0, 1)));
       var number4 = getSum(number3);
 
       return {
@@ -372,7 +372,7 @@
       return stringOfNumber.split("").filter(n => Number(n) !== 0).length;
     }
   </script>
-  <h1>@anastasia.numerologist</h1>
+  <h1><a href="https://instagram.com/anastasia.numerologist">@anastasia.numerologist</a></h1>
 </body>
 
 </html>
