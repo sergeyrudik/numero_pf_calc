@@ -107,8 +107,8 @@ function parseBirth(inputValue) {
     .split("-")
     .reduce((sum, part) => sum + getSum(part), 0);
   var tipology = getSum(sumOfBirth);
-  if (tipology === 12) {
-    tipology = 3;
+  if (tipology >= 12) {
+    tipology = getSum(tipology);
   }
   var number3 =
     sumOfBirth -
